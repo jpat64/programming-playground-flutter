@@ -2,7 +2,7 @@
 
 class CoolThing {
   final String name;
-  final int id;
+  final String subtitle;
 
-  const CoolThing({required this.name, required this.id});
+  const CoolThing({required this.name, required this.subtitle});
 }

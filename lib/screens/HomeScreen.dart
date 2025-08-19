@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:programming_playground/models/CoolThing.dart';
+import 'package:programming_playground/services/CoolThingService.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.title});
@@ -18,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    thing = CoolThing(id: 0, name: "The Coolest Thing");
+    thing = CoolThing(subtitle: "(so far)", name: "The Coolest Thing");
   }
 
   @override
@@ -30,16 +31,42 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Center(
         child: Column(
+          spacing: 12,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text("Welcome to the Playground Home Screen!"),
             Card(
               color: Colors.deepPurple[200],
-              child: Text(
-                thing != null
-                    ? "${thing!.name} (id: ${thing!.id})"
-                    : "No cool things yet.",
+              child: Container(
+                padding: const EdgeInsets.all(24),
+                child: thing != null
+                    ? Column(
+                        children: [
+                          Text(
+                            thing!.name,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                            ),
+                          ),
+                          Text(thing!.subtitle),
+                        ],
+                      )
+                    : const Text("No cool things yet."),
               ),
+            ),
+            TextButton(
+              onPressed: () async {
+                CoolThing? foundCoolThing = await CoolThingService()
+                    .getSingleThing("US");
+                print('foundcoolthing: $foundCoolThing');
+                if (foundCoolThing != null) {
+                  setState(() {
+                    thing = foundCoolThing;
+                  });
+                }
+              },
+              child: Text("Get Cool Thing"),
             ),
           ],
         ),
