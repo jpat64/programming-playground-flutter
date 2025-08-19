@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-class CoolThing {
+abstract class CoolThing {
   final String name;
   final String subtitle;
 

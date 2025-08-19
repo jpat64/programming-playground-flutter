@@ -1,8 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:programming_playground/models/Book.dart';
 import 'package:programming_playground/models/CoolThing.dart';
-import 'package:programming_playground/services/CoolThingService.dart';
+import 'package:programming_playground/services/BookService.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.title});
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    thing = CoolThing(subtitle: "(so far)", name: "The Coolest Thing");
+    thing = Book(subtitle: "(so far)", name: "The Coolest Thing", downloads: 0);
   }
 
   @override
@@ -57,8 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             TextButton(
               onPressed: () async {
-                CoolThing? foundCoolThing = await CoolThingService()
-                    .getSingleThing("US");
+                CoolThing? foundCoolThing = await BookService().getSingleThing(
+                  "1234",
+                );
                 if (foundCoolThing != null) {
                   setState(() {
                     thing = foundCoolThing;
