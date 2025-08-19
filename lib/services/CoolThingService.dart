@@ -24,8 +24,6 @@ class CoolThingService {
         subtitle: firstHoliday['date'],
       );
     }
-
-    print(response.body);
     return null;
   }
 }

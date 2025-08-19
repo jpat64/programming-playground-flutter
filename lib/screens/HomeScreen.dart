@@ -59,7 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () async {
                 CoolThing? foundCoolThing = await CoolThingService()
                     .getSingleThing("US");
-                print('foundcoolthing: $foundCoolThing');
                 if (foundCoolThing != null) {
                   setState(() {
                     thing = foundCoolThing;
