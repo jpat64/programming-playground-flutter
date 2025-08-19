@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:http/http.dart' as http;
 
@@ -16,12 +17,13 @@ class CoolThingService {
     );
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      Map<String, dynamic> firstHoliday =
-          (json.decode(response.body) as List<dynamic>)[0];
+      List<dynamic> responseList = json.decode(response.body) as List<dynamic>;
+      Map<String, dynamic> randomHoliday =
+          (responseList)[Random.secure().nextInt(responseList.length)];
 
       return CoolThing(
-        name: firstHoliday['localName'],
-        subtitle: firstHoliday['date'],
+        name: randomHoliday['localName'],
+        subtitle: randomHoliday['date'],
       );
     }
     return null;
